@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.so
+
+# Environment
+.env
+*.env.local
+venv/
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+screenshots/
+*.png
+*.jpg
+*.xwd
+
+# Config with secrets
+.agent_config.json
+*.token
+
+# Tunnel files
+/tmp/tunnel_*

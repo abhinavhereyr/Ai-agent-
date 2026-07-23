@@ -1,0 +1,31 @@
+# Config file for AI Agent Beast
+# Location: ~/.agent_config.json
+{
+  "voice": {
+    "stt_model": "tiny",
+    "tts_enabled": true,
+    "wake_word": "hey agent",
+    "language": "en"
+  },
+  "automation": {
+    "screenshot_dir": "~/agent_screenshots",
+    "click_duration": 0.1
+  },
+  "android": {
+    "adb_path": "adb",
+    "screenshot_dir": "~/android_screenshots"
+  },
+  "web": {
+    "host": "0.0.0.0",
+    "port": 8765
+  },
+  "memory": {
+    "db_path": "~/.agent_memory/memory.db"
+  },
+  "llm": {
+    "model": "qwen2.5:1.5b",
+    "api_url": "http://localhost:11434",
+    "timeout": 30,
+    "max_tokens": 512
+  }
+}
