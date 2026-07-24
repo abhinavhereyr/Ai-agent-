@@ -79,6 +79,7 @@ class AgentEngine:
 
     def __init__(self):
         self.running = False
+        self.start_time = None
         self.actions = ActionRegistry()
         self.session_id = f"session_{int(time.time())}"
         self._register_all_actions()
@@ -724,6 +725,7 @@ When answering questions, be concise and accurate.
     def start(self):
         """Start the agent engine."""
         self.running = True
+        self.start_time = time.time()
         memory.add_message("system", "Agent started", self.session_id)
         print("[Agent] Engine started.")
         return True
@@ -738,8 +740,13 @@ When answering questions, be concise and accurate.
 
     def status(self):
         """Get comprehensive agent status."""
+        uptime_secs = int(time.time() - self.start_time) if self.start_time else 0
+        hours, rem = divmod(uptime_secs, 3600)
+        minutes, seconds = divmod(rem, 60)
+        uptime_str = f"{hours}h {minutes}m {seconds}s" if hours else f"{minutes}m {seconds}s"
         return {
             "running": self.running,
+            "uptime": uptime_str,
             "session_id": self.session_id,
             "ollama_running": is_running(),
             "ollama_models": list_models(),

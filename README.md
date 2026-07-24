@@ -334,6 +334,41 @@ Built with ❤️ for the open-source community.
 
 ---
 
+## 🌐 24/7 Cloud Deployment
+
+Deploy your AI Agent Beast to the cloud for permanent 24/7 access from anywhere (phone, laptop, etc.).
+
+### One-Click Deploy
+
+| Platform | Button |
+|----------|--------|
+| **Railway** | [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/abhinavhereyr/Ai-agent-) |
+| **Render** | [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/abhinavhereyr/Ai-agent-) |
+
+> ✅ **Live demo:** After deploying, your app will be available at a Railway/Render URL (e.g., `https://ai-agent-beast.railway.app`)
+
+### Manual Deploy on Railway
+
+```bash
+# Install Railway CLI
+npm install -g @railway/cli
+
+# Login
+railway login
+
+# Deploy from project root
+railway up
+```
+
+### Manual Deploy on Render
+
+1. Push this repo to GitHub
+2. Go to [Render](https://dashboard.render.com/) → New → Web Service
+3. Connect your GitHub repo
+4. Render auto-detects `render.yaml` — just click **Apply**
+
+---
+
 ## 🙏 Acknowledgments
 
 - [Ollama](https://ollama.com/) — Local LLM runtime

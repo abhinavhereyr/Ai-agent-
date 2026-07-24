@@ -88,6 +88,12 @@ def admin_required(session):
 app = FastAPI(title="AI Agent Beast - Free & Unlimited")
 
 
+@app.on_event("startup")
+async def on_startup():
+    """Start engine on web server boot."""
+    engine.start()
+
+
 # ===========================================================================
 # Auth Middleware
 # ===========================================================================
