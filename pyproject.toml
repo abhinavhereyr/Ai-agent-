@@ -1,0 +1,11 @@
+# ---------------------------------------------------------------------------
+# Vercel FastAPI entrypoint
+# ---------------------------------------------------------------------------
+# Vercel's framework detection fails when the root main.py has no top-level
+# FastAPI instance ("Found main.py but it does not define a top-level 'app").
+# Point the serverless build at the real ASGI app. web.api_server is a pure
+# REST API (no auth gate, no WebSocket) so it is serverless-viable, while the
+# full dashboard (web/app.py) still runs locally or behind the keep_alive.sh
+# tunnel.
+[tool.vercel]
+entrypoint = "web.api_server:app"
