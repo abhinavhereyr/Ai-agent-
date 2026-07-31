@@ -36,5 +36,8 @@ screenshots/
 .agent_config.json
 *.token
 
+# Supervisor logs & runtime state
+logs/
+
 # Tunnel files
 /tmp/tunnel_*

@@ -14,9 +14,9 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TUNNEL_URL_FILE="/tmp/tunnel_url.txt"
-TUNNEL_PID_FILE="/tmp/keep_alive.pid"
-LOG_FILE="/tmp/tunnel.log"
+TUNNEL_URL_FILE="${TUNNEL_URL_FILE:-/tmp/tunnel_url.txt}"
+TUNNEL_PID_FILE="${TUNNEL_PID_FILE:-/tmp/keep_alive.pid}"
+LOG_FILE="${LOG_FILE:-/tmp/tunnel.log}"
 LOCAL_PORT=8765
 TUNNEL_SERVICE="nokey@localhost.run"
 

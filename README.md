@@ -367,6 +367,28 @@ railway up
 3. Connect your GitHub repo
 4. Render auto-detects `render.yaml` — just click **Apply**
 
+### Vercel (frontend / Ollama endpoint)
+
+This repo's web dashboard is a Python/FastAPI app, so it runs on Railway/Render or
+via the `keep_alive.sh` tunnel. Vercel is best used to host a **separate frontend**
+that talks to your local Ollama instance:
+
+```bash
+# 1. Copy the example env file into your frontend project
+cp .env.example .env
+
+# 2. Point it at a public tunnel to your local Ollama (any of these work)
+VITE_OLLAMA_URL=https://your-tunnel-id.lhr.life     # localhost.run tunnel
+# VITE_OLLAMA_URL=https://your-ngrok-url.ngrok.io   # or ngrok
+
+# 3. Deploy the frontend to Vercel
+npx vercel --prod
+```
+
+> `VITE_OLLAMA_URL` is a **build-time** env var — set it in Vercel's project
+> settings (Settings → Environment Variables) so it is baked into the deployed
+> bundle. A serverless proxy function can be added later if CORS becomes an issue.
+
 ---
 
 ## 🙏 Acknowledgments
