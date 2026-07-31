@@ -10,7 +10,11 @@ try:
     import pyautogui
     pyautogui.FAILSAFE = True
     HAS_PYAUTOGUI = True
-except ImportError:
+except Exception:
+    # Headless/serverless boxes (e.g. Vercel) have no X display. pyautogui's
+    # transitive imports (mouseinfo -> Xlib) fail at import time there with
+    # KeyError/OSError/XauthError -- not ImportError -- so a broad catch is
+    # required or the whole process crashes on import.
     HAS_PYAUTOGUI = False
 
 try:
