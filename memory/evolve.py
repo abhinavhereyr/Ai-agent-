@@ -22,7 +22,10 @@ from core.llm import chat
 # Constants
 # ---------------------------------------------------------------------------
 
-MEMORY_DIR = os.path.expanduser("~/agent_memory")
+# Serverless (Vercel) has a read-only filesystem except /tmp.
+MEMORY_DIR = os.path.expanduser(
+    "/tmp/agent_memory" if os.environ.get("VERCEL") else "~/agent_memory"
+)
 MEMORY_FILES = {
     "user": "user.md",
     "memory": "memory.md",

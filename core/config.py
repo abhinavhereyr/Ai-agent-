@@ -71,6 +71,12 @@ class Config:
                 self._deep_merge(self.data, user)
             except Exception:
                 pass
+        # Serverless (Vercel) runs a read-only filesystem; only /tmp is
+        # writable. Relocate runtime writable paths so the SQLite memory DB
+        # and screenshot dir do not crash the function at import/request time.
+        if os.environ.get("VERCEL"):
+            self.data["memory"]["db_path"] = "/tmp/agent_memory.db"
+            self.data["automation"]["screenshot_dir"] = "/tmp/screenshots"
 
     def _deep_merge(self, base, override):
         for k, v in override.items():
