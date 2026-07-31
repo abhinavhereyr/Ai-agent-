@@ -2,7 +2,7 @@
 
 <div align="center">
 
-**A free, unlimited, fully local AI agent for desktop automation, Android control, web interaction, code execution, and more.**
+**A free, unlimited AI agent for desktop automation, Android control, web interaction, code execution, and more — powered by Meta Llama 3 via Groq Cloud, with a fully local Ollama fallback.**
 
 [![GitHub](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-brightgreen.svg)]()
@@ -89,10 +89,11 @@
 # Python 3.8+ required
 python3 --version
 
-# Install Ollama (for local LLM)
-curl -fsSL https://ollama.com/install.sh | sh
+# Get a free Groq API key: https://console.groq.com/keys
+export GROQ_API_KEY="gsk_your_key_here"
 
-# Pull a model (1.5B is fast, 7B is smarter)
+# Optional: Ollama (local fallback when GROQ_API_KEY is not set)
+curl -fsSL https://ollama.com/install.sh | sh
 ollama pull qwen2.5:1.5b
 # or: ollama pull qwen2.5:7b
 ```
@@ -276,8 +277,8 @@ agent/
 | Component | Technology |
 |-----------|-----------|
 | **Language** | Python 3.8+ |
-| **LLM Runtime** | Ollama (local) |
-| **Models** | Qwen 2.5, TinyLlama, Llama 3+ |
+| **LLM Runtime** | Groq Cloud API (primary) + Ollama (local fallback) |
+| **Models** | Meta Llama 3.1 8B Instant / Llama 3.3 70B Versatile (Groq), Qwen 2.5 / TinyLlama (Ollama) |
 | **Web Framework** | FastAPI + Uvicorn |
 | **Database** | SQLite (persistent memory) |
 | **Desktop Automation** | PyAutoGUI, MSS, PIL |
@@ -300,6 +301,11 @@ Edit `~/.agent_config.json`:
     "ollama_host": "http://localhost:11434",
     "temperature": 0.7,
     "max_tokens": 4096
+  },
+  "groq": {
+    "model": "llama-3.1-8b-instant",
+    "alt_model": "llama-3.3-70b-versatile",
+    "base_url": "https://api.groq.com/openai/v1"
   },
   "memory": {
     "db_path": "~/.agent_memory.db",
@@ -388,6 +394,25 @@ npx vercel --prod
 > `VITE_OLLAMA_URL` is a **build-time** env var — set it in Vercel's project
 > settings (Settings → Environment Variables) so it is baked into the deployed
 > bundle. A serverless proxy function can be added later if CORS becomes an issue.
+
+### Using Groq on Vercel / Railway / Render
+
+The backend reads `GROQ_API_KEY` from the environment at runtime. Because Groq
+is a hosted API (no local process to keep alive), the agent works out of the box
+on serverless and container platforms:
+
+```bash
+# Set in your platform's dashboard (or .env for local runs)
+GROQ_API_KEY=gsk_your_key_here
+```
+
+- **Vercel:** Project → Settings → Environment Variables → add `GROQ_API_KEY`
+- **Railway:** Project → Variables → add `GROQ_API_KEY`
+- **Render:** Dashboard → your service → Environment → add `GROQ_API_KEY`
+
+With `GROQ_API_KEY` set, the agent uses Meta Llama 3 (`llama-3.1-8b-instant`)
+via Groq and does **not** require Ollama to be running. Without it, it falls
+back to your local Ollama server automatically.
 
 ---
 

@@ -11,6 +11,11 @@ DEFAULTS = {
         "temperature": 0.7,
         "max_tokens": 4096,
     },
+    "groq": {
+        "model": "llama-3.1-8b-instant",
+        "alt_model": "llama-3.3-70b-versatile",
+        "base_url": "https://api.groq.com/openai/v1",
+    },
     "voice": {
         "stt_model": "whisper-tiny",  # tiny/base/small/medium/large
         "tts_enabled": True,
