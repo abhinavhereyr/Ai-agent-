@@ -41,3 +41,4 @@ logs/
 
 # Tunnel files
 /tmp/tunnel_*
+.vercel
